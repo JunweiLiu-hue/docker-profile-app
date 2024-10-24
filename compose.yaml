@@ -26,6 +26,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=secret
     networks:
        - profile-network
+    volumes:    # 绑定卷
+      - C:/Users/26213/Desktop/docker/simple-profile-app/data:/data/db  # 修改为你的实际路径
 
   mongo-express:
     container_name: express
