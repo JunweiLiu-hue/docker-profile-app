@@ -7,7 +7,7 @@ services:
   app:
     container_name: profileapp
     image: profileapp:1.0
-    build: .      # Location of Dockerfile
+    build: .
     ports:
       - 3000:3000
     environment:
@@ -18,7 +18,7 @@ services:
     depends_on:
       - database
 
-  database:  
+  database:
     container_name: mongoDB
     image: mongo:8.0-rc
     environment:
@@ -26,8 +26,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=secret
     networks:
        - profile-network
-    volumes:    
-      - C:/Users/26213/Desktop/docker/simple-profile-app/data:/data/db
+    volumes:
+      - profiledata:/data/db  
 
   mongo-express:
     container_name: express
@@ -43,3 +43,6 @@ services:
        - profile-network
     depends_on:
       - database
+
+volumes:
+  profiledata:  
