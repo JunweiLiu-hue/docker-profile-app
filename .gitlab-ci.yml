@@ -1,0 +1,29 @@
+
+stages:
+  - stage1
+  - stage2
+  - stage3
+  
+jobA:
+  stage: stage1
+  script:
+    - echo "Start of '$CI_PIPELINE_ID' pipeline "
+    - echo "This is job '$CI_JOB_NAME' in stage '$CI_JOB_STAGE'"
+  
+jobB:
+  stage: stage2
+  script:
+      - echo "This is job '$CI_JOB_NAME' in stage '$CI_JOB_STAGE'"
+      
+jobC:
+  stage: stage2
+  script:
+    - echo "This is job '$CI_JOB_NAME' in stage '$CI_JOB_STAGE'"
+
+jobD:
+  stage: stage3
+  script:
+    - echo "This is job '$CI_JOB_Name' in stage '$CI_JOB_STAGE'"
+    - echo "End of '$CI_PIPELINE_ID' pipeline "
+
+           
