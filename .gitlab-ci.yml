@@ -1,6 +1,6 @@
 variables:
    APP_NAME: 'profile-app'
-   DOCKER_HUB_USERNAME: 'junwliu'. # Change to your Docker Hub username
+   DOCKER_HUB_USERNAME: 'junwliu'
 
 stages:
    - build
