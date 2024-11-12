@@ -15,8 +15,8 @@ build-and-publish:
      - echo "Build stage executing"
      - docker build -t ${DOCKER_HUB_USERNAME}/${APP_NAME} .
      - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_TOKEN}
-     - docker tag  ${DOCKER_HUB_USERNAME}/${APP_NAME}  ${DOCKER_HUB_USERNAME}/${APP_NAME}:${CI_COMMIT_SHORT_SHA} 
-    - docker push ${DOCKER_HUB_USERNAME}/${APP_NAME}:${CI_COMMIT_SHORT_SHA}
+     - docker tag  ${DOCKER_HUB_USERNAME}/${APP_NAME}  ${DOCKER_HUB_USERNAME}/${APP_NAME}:${CI_COMMIT_SHORT_SHA}
+     - docker push ${DOCKER_HUB_USERNAME}/${APP_NAME}:${CI_COMMIT_SHORT_SHA}
 
 base-test:
   stage: test
@@ -24,4 +24,4 @@ base-test:
   before_script:
      - echo 'Execute before main script'
   script: 
-     - echo "Reference a variable - ${APP_NAME} " 
+     - echo "Reference a variable - ${APP_NAME}"
