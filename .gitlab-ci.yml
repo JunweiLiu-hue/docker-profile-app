@@ -21,8 +21,18 @@ build-and-publish:
 
 base-test:
   stage: test
-  image: docker:20.10.16
+  image: docker:27.0.2-cli-alpine3.20
+  services: 
+     - docker:27.0.2-dind-alpine3.20
   before_script:
-    - echo 'Execute before main script'
-  script:
-    - echo "Reference a variable - ${APP_NAME}"
+    - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_TOKEN}
+    - docker pull  ${DOCKER_HUB_USERNAME}/${APP_NAME}:${CI_COMMIT_SHORT_SHA}  
+    - docker pull  mongo:8.0-rc 
+    - docker network create mongo-network
+  script: 
+    - docker run -d --net mongo-network --name mongoDB -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=secret  mongo:8.0-rc 
+    - docker run -d --network mongo-network --name ${APP_NAME} -p 3000:3000 -e MONGO_PASS=secret -e MONGO_HOST=mongoDB ${DOCKER_HUB_USERNAME}/${APP_NAME}:${CI_COMMIT_SHORT_SHA}
+    - docker ps                    # For debugging purposes
+    - docker logs ${APP_NAME}     # For debugging purposes
+    - apk add curl
+    - curl http://docker:3000 | grep 'User profile'  # Simple test
