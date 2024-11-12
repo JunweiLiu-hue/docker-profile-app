@@ -6,7 +6,7 @@ stages:
    - build
    - test
 
-build-and-publish::
+build-and-publish:
   image: docker:27.0.2-cli-alpine3.20
   services:
     - docker:27.0.2-dind-alpine3.20
