@@ -1,10 +1,10 @@
 variables:
-   APP_NAME: 'profile-app'
-   DOCKER_HUB_USERNAME: 'junwliu'
+  APP_NAME: 'profile-app'
+  DOCKER_HUB_USERNAME: 'junwliu'
 
 stages:
-   - build
-   - test
+  - build
+  - test
 
 build-and-publish:
   image: docker:27.0.2-cli-alpine3.20
@@ -12,16 +12,16 @@ build-and-publish:
     - docker:27.0.2-dind-alpine3.20
   stage: build
   script:
-     - echo "Build stage executing"
-     - docker build -t ${DOCKER_HUB_USERNAME}/${APP_NAME} .
-     - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_TOKEN}
-     - docker tag  ${DOCKER_HUB_USERNAME}/${APP_NAME}  ${DOCKER_HUB_USERNAME}/${APP_NAME}:${CI_COMMIT_SHORT_SHA}
-     - docker push ${DOCKER_HUB_USERNAME}/${APP_NAME}:${CI_COMMIT_SHORT_SHA}
+    - echo "Build stage executing"
+    - docker build -t ${DOCKER_HUB_USERNAME}/${APP_NAME} .
+    - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_TOKEN}
+    - docker tag ${DOCKER_HUB_USERNAME}/${APP_NAME} ${DOCKER_HUB_USERNAME}/${APP_NAME}:${CI_COMMIT_SHORT_SHA}
+    - docker push ${DOCKER_HUB_USERNAME}/${APP_NAME}:${CI_COMMIT_SHORT_SHA}
 
 base-test:
   stage: test
   image: docker:20.10.16
   before_script:
-     - echo 'Execute before main script'
-  script: 
-     - echo "Reference a variable - ${APP_NAME}"
+    - echo 'Execute before main script'
+  script:
+    - echo "Reference a variable - ${APP_NAME}"
