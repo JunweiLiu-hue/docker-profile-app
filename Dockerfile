@@ -1,17 +1,18 @@
 FROM node:20-alpine
 
-ENV MONGO_USER='admin' \
- MONGO_PASS='' \
- MONGO_HOST='' \
- MONGO_PORT=27017 \
- PORT=3000
+ENV PORT=5000 \
+    DB_USER='postgres' \
+    DB_HOST='' \
+    DB_NAME='postgres' \
+    DB_PASSWORD='' \
+    DB_PORT=5432
 
-EXPOSE 3000
+EXPOSE 5000
 
-RUN mkdir -p /home/app
-WORKDIR /home/app
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-COPY ./app .
+COPY . .
 RUN npm install
 
-CMD ["node", "server.js"]
+CMD ["node", "index.js"]
