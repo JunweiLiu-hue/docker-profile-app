@@ -1,0 +1,24 @@
+version: '3'
+services:
+  profile-app:
+    image: profile-app:1.1
+    container_name: profile-app
+    ports:
+      - "3001:3000"
+    networks:
+      - mongo-network
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27018:27017"
+    networks:
+      - mongo-network
+
+networks:
+  mongo-network:
+  
+driver: bridge
